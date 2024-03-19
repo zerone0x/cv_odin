@@ -48,6 +48,7 @@ function Personal({AddPersonalInfo, onSetName, onSetEmail, onSetPhone}){
         <input type="text" id="email" name="email" onChange={(e)=>onSetEmail(e.target.value)}></input>
         <label for="phone">Phone:</label>
         <input type="text" id="phone" name="phone" onChange={(e)=>onSetPhone(e.target.value)}></input>
+        <button >Edit </button>
         <button type="submit">Add</button>
       </form>
     </div>
@@ -58,9 +59,21 @@ function Personal({AddPersonalInfo, onSetName, onSetEmail, onSetPhone}){
 function Display({pInfo}) {
   return (
     <div className="Display">
-      <p>{pInfo.name}</p>
-      <p>{pInfo.email}</p>
-      <p>{pInfo.phone}</p>
+      <h1>Resume</h1>
+      <div>
+        <h2>Personal information</h2>
+
+      <p>Name: {pInfo.name}</p>
+      <p>Email:{pInfo.email}</p>
+      <p>Phone:{pInfo.phone}</p>
+      </div>
+      <div>
+        <h2>Experience</h2>
+      </div>
+      <div>
+        <h2>Education</h2>
+
+      </div>
       </div>
   )
 }
