@@ -1,13 +1,15 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 
 function App() {
   let [name, setName] = useState('');
   let [email, setEmail] = useState('');
   let [phone, setPhone] = useState('');
-  
+  let [PersonalInfo, setPersonal] = useState({name: name, email: email, phone: phone});
+  function AddPersonalInfo(e) {
+    e.preventDefault();
+    setPersonal({name:name, email:email, phone:phone});
+  }
   function handleNameChange(name) {
     setName(name);
   }
@@ -17,15 +19,25 @@ function App() {
   function handlePhoneChange(phone) {
     setPhone(phone);
   }
-  function AddPersonalInfo(e) {
-    e.preventDefault();
-    // 感觉是要做成数据group 遍历 来实现add 不太好直接加一个component 参数不好传递
-    
-  }
-  let PersonalInfo = {
-    name: name,
-    email: email,
-    phone: phone
+
+  function Display({pInfo}) {
+    return (
+      <div className="Display">
+        <h1>Resume</h1>
+        <div>
+          <h2>Personal information</h2>
+        <p>Name: {pInfo.name}</p>
+        <p>Email:{pInfo.email}</p>
+        <p>Phone:{pInfo.phone}</p>
+        </div>
+        <div>
+          <h2>Experience</h2>
+        </div>
+        <div>
+          <h2>Education</h2>
+        </div>
+        </div>
+    )
   }
 
   return (
@@ -38,6 +50,7 @@ function App() {
     </div>
   );
 }
+
 function Personal({AddPersonalInfo, onSetName, onSetEmail, onSetPhone}){
   return(
     <div className="Personal">
@@ -48,37 +61,13 @@ function Personal({AddPersonalInfo, onSetName, onSetEmail, onSetPhone}){
         <input type="text" id="email" name="email" onChange={(e)=>onSetEmail(e.target.value)}></input>
         <label for="phone">Phone:</label>
         <input type="text" id="phone" name="phone" onChange={(e)=>onSetPhone(e.target.value)}></input>
-        <button >Edit </button>
+        <button type="button">Edit </button>
         <button type="submit">Add</button>
       </form>
     </div>
   
   )
 }
-
-function Display({pInfo}) {
-  return (
-    <div className="Display">
-      <h1>Resume</h1>
-      <div>
-        <h2>Personal information</h2>
-
-      <p>Name: {pInfo.name}</p>
-      <p>Email:{pInfo.email}</p>
-      <p>Phone:{pInfo.phone}</p>
-      </div>
-      <div>
-        <h2>Experience</h2>
-      </div>
-      <div>
-        <h2>Education</h2>
-
-      </div>
-      </div>
-  )
-}
-
-
 
 function Edu() {
   return (
