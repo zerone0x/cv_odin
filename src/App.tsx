@@ -30,7 +30,7 @@ function App() {
     { school: school, degree: degree, graduationDate: graduationDate, id: 0 },
   ]);
 
-  function AddEducation(e: React.FormEvent<HTMLFormElement>) {
+  function AddEducation(e:React.MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
     setEducation([
       ...education,
@@ -71,7 +71,7 @@ function App() {
     );
   }
 
-  function AddCompanyInfo(e: React.FormEvent<HTMLFormElement>) {
+  function AddCompanyInfo(e: React.MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
     setCompanyInfo([
       ...companyInfo,
@@ -233,7 +233,7 @@ interface EducationItem{
 }
 interface EduType {
   education: EducationItem[];
-  AddEducation: (e: React.FormEvent<HTMLFormElement>) => void;
+  AddEducation: (e: React.MouseEvent<HTMLButtonElement>) => void;
   deleteEducation: (index: number) => void;
   updateEducation: (e: React.FormEvent<HTMLFormElement>, index: number) => void;
   setSchool: (school: string) => void;
@@ -317,7 +317,7 @@ interface ExpType {
   updateCompanyInfo: (e: React.FormEvent<HTMLFormElement>, index: number) => void;
   deleteCompanyInfo: (index: number) => void;
   companyInfo: CompanyInfoType[];
-  AddCompanyInfo: (e: React.FormEvent<HTMLFormElement>) => void;
+  AddCompanyInfo: (e: React.MouseEvent<HTMLButtonElement>) => void;
   setEndDate: (endDate: string) => void;
   setStartDate: (startDate: string) => void;
   setPosition: (position: string) => void;
