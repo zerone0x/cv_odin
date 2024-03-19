@@ -30,7 +30,7 @@ function App() {
     { school: school, degree: degree, graduationDate: graduationDate, id: 0 },
   ]);
 
-  function AddEducation(e: any) {
+  function AddEducation(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setEducation([
       ...education,
@@ -53,7 +53,7 @@ function App() {
     }
   }
 
-  function updateEducation(e:any, index: number) {
+  function updateEducation(e: React.FormEvent<HTMLFormElement>, index: number) {
     e.preventDefault();
     setEducation(
       education.map((item) => {
@@ -71,7 +71,7 @@ function App() {
     );
   }
 
-  function AddCompanyInfo(e:any) {
+  function AddCompanyInfo(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setCompanyInfo([
       ...companyInfo,
@@ -100,7 +100,7 @@ function App() {
     }
   }
 
-  function updateCompanyInfo(e:any, index: number) {
+  function updateCompanyInfo(e: React.FormEvent<HTMLFormElement>, index: number) {
     e.preventDefault();
     setCompanyInfo(
       companyInfo.map((item) => {
@@ -125,7 +125,7 @@ function App() {
   // delte --> same as edit
   // show all the items in the array
   // Display and form itself
-  function AddPersonalInfo(e:any) {
+  function AddPersonalInfo(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setPersonal({ name: name, email: email, phone: phone });
   }
