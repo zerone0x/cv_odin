@@ -2,10 +2,10 @@ import { useState } from "react";
 import "./App.css";
 
 function App() {
-  let [name, setName] = useState("");
-  let [email, setEmail] = useState("");
-  let [phone, setPhone] = useState("");
-  let [PersonalInfo, setPersonal] = useState({
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [PersonalInfo, setPersonal] = useState({
     name: name,
     email: email,
     phone: phone,
@@ -30,7 +30,7 @@ function App() {
     { school: school, degree: degree, graduationDate: graduationDate, id: 0 },
   ]);
 
-  function AddEducation(e) {
+  function AddEducation(e: any) {
     e.preventDefault();
     setEducation([
       ...education,
@@ -38,7 +38,7 @@ function App() {
     ]);
   }
 
-  function deleteEducation(index) {
+  function deleteEducation(index: number) {
     if (education.length === 1) {
       setEducation([
         {
@@ -53,7 +53,7 @@ function App() {
     }
   }
 
-  function updateEducation(e, index) {
+  function updateEducation(e:any, index: number) {
     e.preventDefault();
     setEducation(
       education.map((item) => {
@@ -71,7 +71,7 @@ function App() {
     );
   }
 
-  function AddCompanyInfo(e) {
+  function AddCompanyInfo(e:any) {
     e.preventDefault();
     setCompanyInfo([
       ...companyInfo,
@@ -84,7 +84,7 @@ function App() {
       },
     ]);
   }
-  function deleteCompanyInfo(index) {
+  function deleteCompanyInfo(index:number) {
     if (companyInfo.length === 1) {
       setCompanyInfo([
         {
@@ -100,7 +100,7 @@ function App() {
     }
   }
 
-  function updateCompanyInfo(e, index) {
+  function updateCompanyInfo(e:any, index: number) {
     e.preventDefault();
     setCompanyInfo(
       companyInfo.map((item) => {
@@ -125,21 +125,21 @@ function App() {
   // delte --> same as edit
   // show all the items in the array
   // Display and form itself
-  function AddPersonalInfo(e) {
+  function AddPersonalInfo(e:any) {
     e.preventDefault();
     setPersonal({ name: name, email: email, phone: phone });
   }
-  function handleNameChange(name) {
+  function handleNameChange(name: string) {
     setName(name);
   }
-  function handleEmailChange(email) {
+  function handleEmailChange(email: string) {
     setEmail(email);
   }
   function handlePhoneChange(phone) {
     setPhone(phone);
   }
 
-  function Display({ pInfo, companyInfo }) {
+  function Display({ pInfo, companyInfo}) {
     return (
       <div className="Display">
         <h1>Resume</h1>
