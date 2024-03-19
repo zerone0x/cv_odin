@@ -119,12 +119,6 @@ function App() {
     );
   }
 
-  // add new  --> empty form --> init a item in array
-  // fill exp --> transfer the value to array item
-  // edit --> choose the item and update the value
-  // delte --> same as edit
-  // show all the items in the array
-  // Display and form itself
   function AddPersonalInfo(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setPersonal({ name: name, email: email, phone: phone });
@@ -135,11 +129,24 @@ function App() {
   function handleEmailChange(email: string) {
     setEmail(email);
   }
-  function handlePhoneChange(phone) {
+  function handlePhoneChange(phone: string) {
     setPhone(phone);
   }
 
-  function Display({ pInfo, companyInfo}) {
+  interface PersonalInfoType {
+    name: string;
+    email: string;
+    phone: string;
+  }
+  interface CompanyInfoType {
+    company: string;
+    position: string;
+    startDate: string;
+    endDate: string;
+    id: number;
+  }
+
+  function Display({ pInfo, companyInfo}: {pInfo: PersonalInfoType, companyInfo: CompanyInfoType[]}) {
     return (
       <div className="Display">
         <h1>Resume</h1>
@@ -152,7 +159,7 @@ function App() {
         <div>
           <h2>Experience</h2>
           <div>
-            {companyInfo.map((item, index) => {
+            {companyInfo.map((item: CompanyInfoType, index) => {
               return (
                 <div key={index}>
                   <p>Company: {item.company}</p>
