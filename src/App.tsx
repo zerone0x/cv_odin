@@ -190,7 +190,6 @@ function App() {
   }
 
   return (
-    
     <div className="App">
       <div className="App-header">
       <h1>CV Generator</h1>
@@ -226,6 +225,21 @@ function App() {
   );
 }
 
+interface EducationItem{
+  school: string;
+  degree: string;
+  graduationDate: string;
+  id: number;
+}
+interface EduType {
+  education: EducationItem[];
+  AddEducation: (e: React.FormEvent<HTMLFormElement>) => void;
+  deleteEducation: (index: number) => void;
+  updateEducation: (e: React.FormEvent<HTMLFormElement>, index: number) => void;
+  setSchool: (school: string) => void;
+  setDegree: (degree: string) => void;
+  setGraduationDate: (graduationDate: string) => void;
+}
 function Edu({
   education,
   AddEducation,
@@ -234,10 +248,10 @@ function Edu({
   setSchool,
   setDegree,
   setGraduationDate,
-}) {
+}: EduType) {
   return (
     <>
-      {education.map((item, index) => {
+      {education.map((_, index) => {
         return (
           <div className="Edu" key={index}>
             <form
@@ -292,6 +306,23 @@ function Edu({
     </>
   );
 }
+interface CompanyInfoType {
+  company: string;
+  position: string;
+  startDate: string;
+  endDate: string;
+  id: number;
+}
+interface ExpType {
+  updateCompanyInfo: (e: React.FormEvent<HTMLFormElement>, index: number) => void;
+  deleteCompanyInfo: (index: number) => void;
+  companyInfo: CompanyInfoType[];
+  AddCompanyInfo: (e: React.FormEvent<HTMLFormElement>) => void;
+  setEndDate: (endDate: string) => void;
+  setStartDate: (startDate: string) => void;
+  setPosition: (position: string) => void;
+  setCompany: (company: string) => void;
+}
 
 function Exp({
   updateCompanyInfo,
@@ -302,10 +333,10 @@ function Exp({
   setStartDate,
   setPosition,
   setCompany,
-}) {
+}: ExpType) {
   return (
     <>
-      {companyInfo.map((item, index) => {
+      {companyInfo.map((_, index) => {
         console.log(index);
         return (
           <div className="Exp" key={index}>
@@ -370,8 +401,13 @@ function Exp({
     </>
   );
 }
-
-function Personal({ AddPersonalInfo, onSetName, onSetEmail, onSetPhone }) {
+interface PersonalType {
+  AddPersonalInfo: (e: React.FormEvent<HTMLFormElement>) => void;
+  onSetName: (name: string) => void;
+  onSetEmail: (email: string) => void;
+  onSetPhone: (phone: string) => void;
+}
+function Personal({ AddPersonalInfo, onSetName, onSetEmail, onSetPhone }: PersonalType) {
   return (
     <div className="Personal">
       <form onSubmit={AddPersonalInfo}>
