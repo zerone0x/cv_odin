@@ -1,14 +1,133 @@
-import { useState } from 'react'
-import './App.css'
+import { useState } from "react";
+import "./App.css";
 
 function App() {
-  let [name, setName] = useState('');
-  let [email, setEmail] = useState('');
-  let [phone, setPhone] = useState('');
-  let [PersonalInfo, setPersonal] = useState({name: name, email: email, phone: phone});
+  let [name, setName] = useState("");
+  let [email, setEmail] = useState("");
+  let [phone, setPhone] = useState("");
+  let [PersonalInfo, setPersonal] = useState({
+    name: name,
+    email: email,
+    phone: phone,
+  });
+  const [company, setCompany] = useState("");
+  const [position, setPosition] = useState("");
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const [companyInfo, setCompanyInfo] = useState([
+    {
+      company: company,
+      position: position,
+      startDate: startDate,
+      endDate: endDate,
+      id: 0,
+    },
+  ]);
+  const [school, setSchool] = useState("");
+  const [degree, setDegree] = useState("");
+  const [graduationDate, setGraduationDate] = useState("");
+  const [education, setEducation] = useState([
+    { school: school, degree: degree, graduationDate: graduationDate, id: 0 },
+  ]);
+
+  function AddEducation(e) {
+    e.preventDefault();
+    setEducation([
+      ...education,
+      { school: "", degree: "", graduationDate: "", id: education.length },
+    ]);
+  }
+
+  function deleteEducation(index) {
+    if (education.length === 1) {
+      setEducation([
+        {
+          school: school,
+          degree: degree,
+          graduationDate: graduationDate,
+          id: 0,
+        },
+      ]);
+    } else {
+      setEducation(education.filter((item) => item.id !== index));
+    }
+  }
+
+  function updateEducation(e, index) {
+    e.preventDefault();
+    setEducation(
+      education.map((item) => {
+        if (item.id === index) {
+          return {
+            school: school,
+            degree: degree,
+            graduationDate: graduationDate,
+            id: index,
+          };
+        } else {
+          return item;
+        }
+      })
+    );
+  }
+
+  function AddCompanyInfo(e) {
+    e.preventDefault();
+    setCompanyInfo([
+      ...companyInfo,
+      {
+        company: "",
+        position: "",
+        startDate: "",
+        endDate: "",
+        id: companyInfo.length,
+      },
+    ]);
+  }
+  function deleteCompanyInfo(index) {
+    if (companyInfo.length === 1) {
+      setCompanyInfo([
+        {
+          company: company,
+          position: position,
+          startDate: startDate,
+          endDate: endDate,
+          id: 0,
+        },
+      ]);
+    } else {
+      setCompanyInfo(companyInfo.filter((item) => item.id !== index));
+    }
+  }
+
+  function updateCompanyInfo(e, index) {
+    e.preventDefault();
+    setCompanyInfo(
+      companyInfo.map((item) => {
+        if (item.id === index) {
+          return {
+            company: company,
+            position: position,
+            startDate: startDate,
+            endDate: endDate,
+            id: index,
+          };
+        } else {
+          return item;
+        }
+      })
+    );
+  }
+
+  // add new  --> empty form --> init a item in array
+  // fill exp --> transfer the value to array item
+  // edit --> choose the item and update the value
+  // delte --> same as edit
+  // show all the items in the array
+  // Display and form itself
   function AddPersonalInfo(e) {
     e.preventDefault();
-    setPersonal({name:name, email:email, phone:phone});
+    setPersonal({ name: name, email: email, phone: phone });
   }
   function handleNameChange(name) {
     setName(name);
@@ -20,95 +139,261 @@ function App() {
     setPhone(phone);
   }
 
-  function Display({pInfo}) {
+  function Display({ pInfo, companyInfo }) {
     return (
       <div className="Display">
         <h1>Resume</h1>
         <div>
           <h2>Personal information</h2>
-        <p>Name: {pInfo.name}</p>
-        <p>Email:{pInfo.email}</p>
-        <p>Phone:{pInfo.phone}</p>
+          <p>Name: {pInfo.name}</p>
+          <p>Email:{pInfo.email}</p>
+          <p>Phone:{pInfo.phone}</p>
         </div>
         <div>
           <h2>Experience</h2>
+          <div>
+            {companyInfo.map((item, index) => {
+              return (
+                <div key={index}>
+                  <p>Company: {item.company}</p>
+                  <p>Position: {item.position}</p>
+                  <p>Start Date: {item.startDate}</p>
+                  <p>End Date: {item.endDate}</p>
+                </div>
+              );
+            })}{" "}
+          </div>
         </div>
         <div>
           <h2>Education</h2>
+          <div>
+            {education.map((item, index) => {
+              return (
+                <div key={index}>
+                  <p>School: {item.school}</p>
+                  <p>Degree: {item.degree}</p>
+                  <p>Graduation Date: {item.graduationDate}</p>
+                </div>
+              );
+            })}
+          </div>
         </div>
-        </div>
-    )
+      </div>
+    );
   }
 
   return (
+    
     <div className="App">
-      <header>CV Generator</header>
-      <Personal AddPersonalInfo={AddPersonalInfo} onSetName={handleNameChange} onSetEmail={handleEmailChange} onSetPhone={handlePhoneChange} />
-      <Edu />
-      <Exp />
-      <Display pInfo={PersonalInfo}/>
+      <div className="App-header">
+      <h1>CV Generator</h1>
+      <div className="Sidebar">
+        <Personal
+          AddPersonalInfo={AddPersonalInfo}
+          onSetName={handleNameChange}
+          onSetEmail={handleEmailChange}
+          onSetPhone={handlePhoneChange}
+        />
+        <Exp
+          updateCompanyInfo={updateCompanyInfo}
+          deleteCompanyInfo={deleteCompanyInfo}
+          companyInfo={companyInfo}
+          AddCompanyInfo={AddCompanyInfo}
+          setEndDate={setEndDate}
+          setStartDate={setStartDate}
+          setPosition={setPosition}
+          setCompany={setCompany}
+        />
+        <Edu
+          education={education}
+          AddEducation={AddEducation}
+          deleteEducation={deleteEducation}
+          updateEducation={updateEducation}
+          setSchool={setSchool}
+          setDegree={setDegree}
+          setGraduationDate={setGraduationDate}
+        />
+      </div></div>
+      <Display pInfo={PersonalInfo} companyInfo={companyInfo} />
     </div>
   );
 }
 
-function Personal({AddPersonalInfo, onSetName, onSetEmail, onSetPhone}){
-  return(
+function Edu({
+  education,
+  AddEducation,
+  deleteEducation,
+  updateEducation,
+  setSchool,
+  setDegree,
+  setGraduationDate,
+}) {
+  return (
+    <>
+      {education.map((item, index) => {
+        return (
+          <div className="Edu" key={index}>
+            <form
+              onSubmit={(e) => {
+                updateEducation(e, index);
+              }}
+            >
+              <label htmlFor="school">School:</label>
+              <input
+                type="text"
+                id="school"
+                name="school"
+                onChange={(e) => {
+                  setSchool(e.target.value);
+                }}
+              ></input>
+              <label htmlFor="degree">Degree:</label>
+              <input
+                type="text"
+                id="degree"
+                name="degree"
+                onChange={(e) => {
+                  setDegree(e.target.value);
+                }}
+              ></input>
+              <label htmlFor="graduationDate">Graduation Date:</label>
+              <input
+                type="date"
+                id="graduationDate"
+                name="graduationDate"
+                onChange={(e) => {
+                  setGraduationDate(e.target.value);
+                }}
+              ></input>
+              <button type="button">Edit </button>
+              <button type="submit">Add</button>
+              <button
+                type="button"
+                onClick={() => {
+                  deleteEducation(index);
+                }}
+              >
+                Delete
+              </button>
+              <button type="button" onClick={AddEducation}>
+                Add new
+              </button>
+            </form>
+          </div>
+        );
+      })}
+    </>
+  );
+}
+
+function Exp({
+  updateCompanyInfo,
+  deleteCompanyInfo,
+  companyInfo,
+  AddCompanyInfo,
+  setEndDate,
+  setStartDate,
+  setPosition,
+  setCompany,
+}) {
+  return (
+    <>
+      {companyInfo.map((item, index) => {
+        console.log(index);
+        return (
+          <div className="Exp" key={index}>
+            <form
+              onSubmit={(e) => {
+                updateCompanyInfo(e, index);
+              }}
+            >
+              <label htmlFor="company">Company:</label>
+              <input
+                type="text"
+                id="company"
+                name="company"
+                onChange={(e) => {
+                  setCompany(e.target.value);
+                }}
+              ></input>
+              <label htmlFor="position">Position:</label>
+              <input
+                type="text"
+                id="position"
+                name="position"
+                onChange={(e) => {
+                  setPosition(e.target.value);
+                }}
+              ></input>
+              <label htmlFor="startDate">Start Date:</label>
+              <input
+                type="date"
+                id="startDate"
+                name="startDate"
+                onChange={(e) => {
+                  setStartDate(e.target.value);
+                }}
+              ></input>
+              <label htmlFor="endDate">End Date:</label>
+              <input
+                type="date"
+                id="endDate"
+                name="endDate"
+                onChange={(e) => {
+                  setEndDate(e.target.value);
+                }}
+              ></input>
+              <button type="button">Edit </button>
+              <button type="submit">Add</button>
+              <button
+                type="button"
+                onClick={() => {
+                  deleteCompanyInfo(index);
+                }}
+              >
+                Delete
+              </button>
+              <button type="button" onClick={AddCompanyInfo}>
+                Add new
+              </button>
+            </form>
+          </div>
+        );
+      })}
+    </>
+  );
+}
+
+function Personal({ AddPersonalInfo, onSetName, onSetEmail, onSetPhone }) {
+  return (
     <div className="Personal">
-      <form  onSubmit={AddPersonalInfo} >
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" onChange={(e)=>onSetName(e.target.value)}></input>
-        <label for="email">Email:</label>
-        <input type="text" id="email" name="email" onChange={(e)=>onSetEmail(e.target.value)}></input>
-        <label for="phone">Phone:</label>
-        <input type="text" id="phone" name="phone" onChange={(e)=>onSetPhone(e.target.value)}></input>
+      <form onSubmit={AddPersonalInfo}>
+        <label htmlFor="name">Name:</label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          onChange={(e) => onSetName(e.target.value)}
+        ></input>
+        <label htmlFor="email">Email:</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          onChange={(e) => onSetEmail(e.target.value)}
+        ></input>
+        <label htmlFor="phone">Phone:</label>
+        <input
+          type="tel"
+          id="phone"
+          name="phone"
+          onChange={(e) => onSetPhone(e.target.value)}
+        ></input>
         <button type="button">Edit </button>
         <button type="submit">Add</button>
       </form>
     </div>
-  
-  )
+  );
 }
 
-function Edu() {
-  return (
-    <div className="Edu">
-      <form>
-        <label for="school">School:</label>
-        <input type="text" id="school" name="school"></input>
-        <label for="degree">Degree:</label>
-        <input type="text" id="degree" name="degree"></input>
-        <label for="graduationDate">Graduation Date:</label>
-        <input type="text" id="graduationDate" name="graduationDate"></input>
-        
-      </form>
-    </div>
-
-  )
-}
-
-function Exp() {
-  return (
-    <div className="Exp">
-      <form>
-        <label for="company">Company:</label>
-        <input type="text" id="company" name="company"></input>
-        <label for="position">Position:</label>
-        <input type="text" id="position" name="position"></input>
-        <label for="startDate">Start Date:</label>
-        <input type="text" id="startDate" name="startDate"></input>
-        <label for="endDate">End Date:</label>
-        <input type="text" id="endDate" name="endDate"></input>
-        </form>
-      </div>
-
-  )
-}
-
-
-
-
-
-
-
-
-export default App
+export default App;
